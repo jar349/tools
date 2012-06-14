@@ -23,14 +23,15 @@ INSTALL_PROFILE=stable
 #### DON'T CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ####
 
 echo "\n-------==<( Installing Dependencies )>==-------"
-sudo apt-get -y install git gtk-sharp2 mono-gmcs mono-devel libmono-addins-cil-dev libmono-addins-gui-cil-dev libmono-addins-msbuild-cil-dev gnome-sharp2
+sudo apt-get -y install git gtk-sharp2 mono-gmcs mono-devel libmono-addins-cil-dev libmono-addins-gui-cil-dev libmono-addins-msbuild-cil-dev gnome-sharp2 || (echo "Failed to install the dependencies neccesary to download and compile monodevelop"; exit 1;)
 
 echo "\n-------==<( Downloading $MD from github )>==-------"
-git clone git://github.com/mono/monodevelop.git
+git clone git://github.com/mono/monodevelop.git || (echo "Failed to download the monodevelop source code"; exit 1;)
 cd monodevelop
 
 echo "\n-------==<( Switching to $MD Branch )>==-------"
-git checkout $MD
+git checkout $MD || (echo "Failed to get version $MD from github.  If you edited this script to change the version, you may have chosen a version that isn't tagged in github, or (if you didn't) the default version in this script may no longer be available"; exit 1;)
+  
 git submodule init
 git submodule update
 
