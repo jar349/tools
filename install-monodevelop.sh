@@ -23,7 +23,7 @@ INSTALL_PROFILE=stable
 #### DON'T CHANGE ANYTHING BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ####
 
 echo "\n-------==<( Installing Dependencies )>==-------"
-sudo apt-get -y install git gtk-sharp2 mono-gmcs mono-devel libmono-addins-cil-dev libmono-addins-gui-cil-dev libmono-addins-msbuild-cil-dev gnome-sharp2 || (echo "Failed to install the dependencies neccesary to download and compile monodevelop"; exit 1;)
+sudo apt-get -y install git gtk-sharp2 mono-gmcs mono-devel libmono-addins-cil-dev libmono-addins-gui-cil-dev libmono-addins-msbuild-cil-dev gnome-sharp2 install autoconf automake intltool || (echo "Failed to install the dependencies neccesary to download and compile monodevelop"; exit 1;)
 
 echo "\n-------==<( Downloading $MD from github )>==-------"
 git clone git://github.com/mono/monodevelop.git || (echo "Failed to download the monodevelop source code"; exit 1;)
@@ -36,10 +36,10 @@ git submodule init
 git submodule update
 
 echo "\n-------==<( Configuring Build Script )>==-------"
-./configure --prefix=$INSTALL_DIR --profile=$INSTALL_PROFILE
+./configure --prefix=$INSTALL_DIR --profile=$INSTALL_PROFILE || (echo "Something has gone wrong configuring the build script.  If you are attempting to compile a newer version than 3.0.1, the developers may have introduced a new dependency that isn't installed.  This may also occur if you are attempting to run this script on a platform that isn't ubuntu oneiric or Mint 12"; exit 1;) 
 
 echo "\n-------==<( Building MonoDevelop... )>==-------"
-make
+make || echo ("There was an error compiling monodevelop.  Since the build script was successfully configured, this is unusual.  Consider posting your error on my blog to see if I can help you.  It's possible that you've actually come across a bug in the MD build script."; exit 1;)
 
 echo "\n-------==<( Installing MonoDevelop to $INSTALL_DIR )>==-------"
 sudo make install
