@@ -3,7 +3,7 @@
 # change this to the version that you want to install
 # in order for this script to work, the version has to 
 # exist as a tag or branch on git as "monodevelop-$MD_VER"
-MD_VER=3.0.1
+MD_VER=3.0.3.5
 
 # the branch/tag that we will checkout to build and install
 MD=monodevelop-$MD_VER
