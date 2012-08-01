@@ -39,7 +39,7 @@ echo "\n-------==<( Configuring Build Script )>==-------"
 ./configure --prefix=$INSTALL_DIR --profile=$INSTALL_PROFILE || (echo "Something has gone wrong configuring the build script.  If you are attempting to compile a newer version than 3.0.1, the developers may have introduced a new dependency that isn't installed.  This may also occur if you are attempting to run this script on a platform that isn't ubuntu oneiric or Mint 12"; exit 1;) 
 
 echo "\n-------==<( Building MonoDevelop... )>==-------"
-make || echo ("There was an error compiling monodevelop.  Since the build script was successfully configured, this is unusual.  Consider posting your error on my blog to see if I can help you.  It's possible that you've actually come across a bug in the MD build script."; exit 1;)
+make || (echo "There was an error compiling monodevelop.  Since the build script was successfully configured, this is unusual.  Consider posting your error on my blog to see if I can help you.  It's possible that you've actually come across a bug in the MD build script."; exit 1;)
 
 echo "\n-------==<( Installing MonoDevelop to $INSTALL_DIR )>==-------"
 sudo make install
